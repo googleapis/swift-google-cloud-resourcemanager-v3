@@ -23,129 +23,151 @@ import GoogleIAMV1
 import GoogleLongrunning
 import GoogleRpc
 import GoogleCloudGax
-import struct Logging.Logger
 
 extension Clients {
-  final class TagValuesLogging: TagValuesStub {
-    let inner: any TagValuesStub
-    let logger: Logger
+  final class FoldersRetry: FoldersStub {
+    let inner: any FoldersStub
+    let options: GoogleCloudGax.ClientOptions
 
-    public init(_ inner: any TagValuesStub, logger: Logger) {
-      var logger = logger
-      logger[metadataKey: "gcp.artifact.id"] = "google-cloud-resourcemanager-v3"
-      logger[metadataKey: "gcp.client.service"] = "cloudresourcemanager"
-      logger[metadataKey: "gcp.experimental.swift.client"] = "TagValues"
+    public init(_ inner: any FoldersStub, options: GoogleCloudGax.ClientOptions) {
       self.inner = inner
-      self.logger = logger
+      self.options = options
     }
 
     func _intercept<Input, Output>(
       request: Input,
       options: GoogleCloudGax.RequestOptions,
-      name: Swift.String,
+      idempotent: Swift.Bool,
       action: (Input, GoogleCloudGax.RequestOptions) async throws -> Output,
     ) async throws -> Output {
-      var logger = logger
-      logger[metadataKey: "gcp.experimental.swift.request.id"] = "\(UUID())"
-      logger[metadataKey: "gcp.experimental.swift.method"] = .string(name)
-      logger.debug("enter  : \(request) \(options)")
-      do {
-        let output = try await action(request, options)
-        logger.debug("success: \(request) \(options) \(output)")
-        return output
-      } catch let error {
-        logger.debug("error  : \(request) \(options) \(error)")
-        throw error
+      let loop = GoogleCloudGax._RetryLoop(
+        options: options, withDefault: self.options, idempotent: idempotent,
+      )
+      let attempt = { (attemptTimeout: Swift.Duration?) async throws -> Output in
+        var attemptOptions = options
+        attemptOptions.attemptTimeout = attemptTimeout
+        return try await action(request, attemptOptions)
       }
+      return try await loop.run(attempt: attempt)
     }
 
-    public func listTagValues(
-      request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagValuesResponse {
+    public func getFolder(
+      request: GetFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.Folder {
       try await self._intercept(
         request: request,
         options: options,
-        name: "listTagValues",
+        idempotent: true,
         action: {
-          (r: ListTagValuesRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.ListTagValuesResponse
+          (r: GetFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.Folder
           in
-          return try await self.inner.listTagValues(request: r, options: o)
+          return try await self.inner.getFolder(request: r, options: o)
         })
     }
 
-    public func getTagValue(
-      request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+    public func listFolders(
+      request: ListFoldersRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListFoldersResponse {
       try await self._intercept(
         request: request,
         options: options,
-        name: "getTagValue",
+        idempotent: true,
         action: {
-          (r: GetTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.TagValue
+          (r: ListFoldersRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.ListFoldersResponse
           in
-          return try await self.inner.getTagValue(request: r, options: o)
+          return try await self.inner.listFolders(request: r, options: o)
         })
     }
 
-    public func getNamespacedTagValue(
-      request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+    public func searchFolders(
+      request: SearchFoldersRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.SearchFoldersResponse {
       try await self._intercept(
         request: request,
         options: options,
-        name: "getNamespacedTagValue",
+        idempotent: true,
         action: {
-          (r: GetNamespacedTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.TagValue
+          (r: SearchFoldersRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.SearchFoldersResponse
           in
-          return try await self.inner.getNamespacedTagValue(request: r, options: o)
+          return try await self.inner.searchFolders(request: r, options: o)
         })
     }
 
-    public func createTagValue(
-      request: CreateTagValueRequest, options: GoogleCloudGax.RequestOptions
+    public func createFolder(
+      request: CreateFolderRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
-        name: "createTagValue",
+        idempotent: false,
         action: {
-          (r: CreateTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: CreateFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.createTagValue(request: r, options: o)
+          return try await self.inner.createFolder(request: r, options: o)
         })
     }
 
-    public func updateTagValue(
-      request: UpdateTagValueRequest, options: GoogleCloudGax.RequestOptions
+    public func updateFolder(
+      request: UpdateFolderRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
-        name: "updateTagValue",
+        idempotent: false,
         action: {
-          (r: UpdateTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: UpdateFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.updateTagValue(request: r, options: o)
+          return try await self.inner.updateFolder(request: r, options: o)
         })
     }
 
-    public func deleteTagValue(
-      request: DeleteTagValueRequest, options: GoogleCloudGax.RequestOptions
+    public func moveFolder(
+      request: MoveFolderRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
-        name: "deleteTagValue",
+        idempotent: false,
         action: {
-          (r: DeleteTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: MoveFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.deleteTagValue(request: r, options: o)
+          return try await self.inner.moveFolder(request: r, options: o)
+        })
+    }
+
+    public func deleteFolder(
+      request: DeleteFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleLongrunning.Operation {
+      try await self._intercept(
+        request: request,
+        options: options,
+        idempotent: false,
+        action: {
+          (r: DeleteFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleLongrunning.Operation
+          in
+          return try await self.inner.deleteFolder(request: r, options: o)
+        })
+    }
+
+    public func undeleteFolder(
+      request: UndeleteFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleLongrunning.Operation {
+      try await self._intercept(
+        request: request,
+        options: options,
+        idempotent: false,
+        action: {
+          (r: UndeleteFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleLongrunning.Operation
+          in
+          return try await self.inner.undeleteFolder(request: r, options: o)
         })
     }
 
@@ -155,7 +177,7 @@ extension Clients {
       try await self._intercept(
         request: request,
         options: options,
-        name: "getIamPolicy",
+        idempotent: false,
         action: {
           (r: GoogleIAMV1.GetIamPolicyRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleIAMV1.Policy
@@ -170,7 +192,7 @@ extension Clients {
       try await self._intercept(
         request: request,
         options: options,
-        name: "setIamPolicy",
+        idempotent: false,
         action: {
           (r: GoogleIAMV1.SetIamPolicyRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleIAMV1.Policy
@@ -185,7 +207,7 @@ extension Clients {
       try await self._intercept(
         request: request,
         options: options,
-        name: "testIamPermissions",
+        idempotent: false,
         action: {
           (r: GoogleIAMV1.TestIamPermissionsRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleIAMV1.TestIamPermissionsResponse
@@ -200,7 +222,7 @@ extension Clients {
       try await self._intercept(
         request: request,
         options: options,
-        name: "getOperation",
+        idempotent: true,
         action: {
           (r: GoogleLongrunning.GetOperationRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation

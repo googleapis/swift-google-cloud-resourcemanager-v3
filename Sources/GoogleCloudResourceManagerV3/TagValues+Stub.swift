@@ -25,37 +25,29 @@ import GoogleRpc
 import GoogleCloudGax
 
 extension Clients {
-  protocol ProjectsStub {
-    func getProject(
-      request: GetProjectRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Project
+  protocol TagValuesStub {
+    func listTagValues(
+      request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagValuesResponse
 
-    func listProjects(
-      request: ListProjectsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListProjectsResponse
+    func getTagValue(
+      request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue
 
-    func searchProjects(
-      request: SearchProjectsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchProjectsResponse
+    func getNamespacedTagValue(
+      request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue
 
-    func createProject(
-      request: CreateProjectRequest, options: GoogleCloudGax.RequestOptions
+    func createTagValue(
+      request: CreateTagValueRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func updateProject(
-      request: UpdateProjectRequest, options: GoogleCloudGax.RequestOptions
+    func updateTagValue(
+      request: UpdateTagValueRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func moveProject(
-      request: MoveProjectRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation
-
-    func deleteProject(
-      request: DeleteProjectRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation
-
-    func undeleteProject(
-      request: UndeleteProjectRequest, options: GoogleCloudGax.RequestOptions
+    func deleteTagValue(
+      request: DeleteTagValueRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
     func getIamPolicy(
@@ -75,7 +67,7 @@ extension Clients {
     ) async throws -> GoogleLongrunning.Operation
   }
 
-  class ProjectsTransport: ProjectsStub {
+  class TagValuesTransport: TagValuesStub {
     let inner: GoogleCloudGax.HTTPClient
 
     public init(_ options: GoogleCloudGax.ClientOptions = .init()) throws {
@@ -83,9 +75,30 @@ extension Clients {
         from: options, withDefaultEndpoint: "https://cloudresourcemanager.googleapis.com")
     }
 
-    public func getProject(
-      request: GetProjectRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Project {
+    public func listTagValues(
+      request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagValuesResponse {
+      let path = try { () throws -> Swift.String in
+        return "/v3/tagValues"
+      }()
+      var query = [
+        URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
+      ]
+      let encoder = GoogleCloudGax.QueryParameterEncoder()
+      query.append(contentsOf: try encoder.encode(request.parent, prefix: "parent"))
+      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
+      query.append(contentsOf: try encoder.encode(request.pageToken, prefix: "pageToken"))
+      var req = try await self.inner.Request(path: path, query: query)
+      req.httpMethod = "GET"
+      req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
+      let (data, _) = try await self.inner.rpc(for: req).get()
+      return try GoogleCloudWkt._ProtoJSONDecoder().decode(
+        GoogleCloudResourceManagerV3.ListTagValuesResponse.self, from: data)
+    }
+
+    public func getTagValue(
+      request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -100,65 +113,43 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.Project.self, from: data)
+        GoogleCloudResourceManagerV3.TagValue.self, from: data)
     }
 
-    public func listProjects(
-      request: ListProjectsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListProjectsResponse {
+    public func getNamespacedTagValue(
+      request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue {
       let path = try { () throws -> Swift.String in
-        return "/v3/projects"
+        return "/v3/tagValues/namespaced"
       }()
       var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
       ]
       let encoder = GoogleCloudGax.QueryParameterEncoder()
-      query.append(contentsOf: try encoder.encode(request.parent, prefix: "parent"))
-      query.append(contentsOf: try encoder.encode(request.pageToken, prefix: "pageToken"))
-      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
-      query.append(contentsOf: try encoder.encode(request.showDeleted, prefix: "showDeleted"))
+      query.append(contentsOf: try encoder.encode(request.name, prefix: "name"))
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "GET"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.ListProjectsResponse.self, from: data)
+        GoogleCloudResourceManagerV3.TagValue.self, from: data)
     }
 
-    public func searchProjects(
-      request: SearchProjectsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchProjectsResponse {
-      let path = try { () throws -> Swift.String in
-        return "/v3/projects:search"
-      }()
-      var query = [
-        URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
-      ]
-      let encoder = GoogleCloudGax.QueryParameterEncoder()
-      query.append(contentsOf: try encoder.encode(request.query, prefix: "query"))
-      query.append(contentsOf: try encoder.encode(request.pageToken, prefix: "pageToken"))
-      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
-      var req = try await self.inner.Request(path: path, query: query)
-      req.httpMethod = "GET"
-      req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      let (data, _) = try await self.inner.rpc(for: req).get()
-      return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.SearchProjectsResponse.self, from: data)
-    }
-
-    public func createProject(
-      request: CreateProjectRequest, options: GoogleCloudGax.RequestOptions
+    public func createTagValue(
+      request: CreateTagValueRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
-        return "/v3/projects"
+        return "/v3/tagValues"
       }()
-      let query = [
+      var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
       ]
+      let encoder = GoogleCloudGax.QueryParameterEncoder()
+      query.append(contentsOf: try encoder.encode(request.validateOnly, prefix: "validateOnly"))
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "POST"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      if let body = request.project {
+      if let body = request.tagValue {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONEncoder().encode(body)
       }
@@ -167,12 +158,13 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func updateProject(
-      request: UpdateProjectRequest, options: GoogleCloudGax.RequestOptions
+    public func updateTagValue(
+      request: UpdateTagValueRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
-        guard let pathVariable0 = request.project.map({ $0.name }), !pathVariable0.isEmpty else {
-          throw GoogleCloudGax.RequestError.binding("'request.project.name' is not set or is empty")
+        guard let pathVariable0 = request.tagValue.map({ $0.name }), !pathVariable0.isEmpty else {
+          throw GoogleCloudGax.RequestError.binding(
+            "'request.tag_value.name' is not set or is empty")
         }
         return "/v3/\(pathVariable0)"
       }()
@@ -181,10 +173,11 @@ extension Clients {
       ]
       let encoder = GoogleCloudGax.QueryParameterEncoder()
       query.append(contentsOf: try encoder.encode(request.updateMask, prefix: "updateMask"))
+      query.append(contentsOf: try encoder.encode(request.validateOnly, prefix: "validateOnly"))
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "PATCH"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      if let body = request.project {
+      if let body = request.tagValue {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONEncoder().encode(body)
       }
@@ -193,30 +186,8 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func moveProject(
-      request: MoveProjectRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
-      let path = try { () throws -> Swift.String in
-        guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
-          throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
-        }
-        return "/v3/\(pathVariable0):move"
-      }()
-      let query = [
-        URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
-      ]
-      var req = try await self.inner.Request(path: path, query: query)
-      req.httpMethod = "POST"
-      req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-      req.httpBody = try JSONEncoder().encode(request)
-      let (data, _) = try await self.inner.rpc(for: req).get()
-      return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleLongrunning.Operation.self, from: data)
-    }
-
-    public func deleteProject(
-      request: DeleteProjectRequest, options: GoogleCloudGax.RequestOptions
+    public func deleteTagValue(
+      request: DeleteTagValueRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
@@ -224,34 +195,15 @@ extension Clients {
         }
         return "/v3/\(pathVariable0)"
       }()
-      let query = [
+      var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
       ]
+      let encoder = GoogleCloudGax.QueryParameterEncoder()
+      query.append(contentsOf: try encoder.encode(request.validateOnly, prefix: "validateOnly"))
+      query.append(contentsOf: try encoder.encode(request.etag, prefix: "etag"))
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "DELETE"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      let (data, _) = try await self.inner.rpc(for: req).get()
-      return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleLongrunning.Operation.self, from: data)
-    }
-
-    public func undeleteProject(
-      request: UndeleteProjectRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
-      let path = try { () throws -> Swift.String in
-        guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
-          throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
-        }
-        return "/v3/\(pathVariable0):undelete"
-      }()
-      let query = [
-        URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
-      ]
-      var req = try await self.inner.Request(path: path, query: query)
-      req.httpMethod = "POST"
-      req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-      req.httpBody = try JSONEncoder().encode(request)
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
         GoogleLongrunning.Operation.self, from: data)

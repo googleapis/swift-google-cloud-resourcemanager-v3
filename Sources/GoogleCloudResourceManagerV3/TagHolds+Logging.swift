@@ -22,32 +22,40 @@ import GoogleCloudWkt
 import GoogleLongrunning
 import GoogleRpc
 import GoogleCloudGax
+import struct Logging.Logger
 
 extension Clients {
-  final class TagHoldsRetry: TagHoldsStub {
+  final class TagHoldsLogging: TagHoldsStub {
     let inner: any TagHoldsStub
-    let options: GoogleCloudGax.ClientOptions
+    let logger: Logger
 
-    public init(_ inner: any TagHoldsStub, options: GoogleCloudGax.ClientOptions) {
+    public init(_ inner: any TagHoldsStub, logger: Logger) {
+      var logger = logger
+      logger[metadataKey: "gcp.artifact.id"] = "google-cloud-resourcemanager-v3"
+      logger[metadataKey: "gcp.client.service"] = "cloudresourcemanager"
+      logger[metadataKey: "gcp.experimental.swift.client"] = "TagHolds"
       self.inner = inner
-      self.options = options
+      self.logger = logger
     }
 
     func _intercept<Input, Output>(
       request: Input,
       options: GoogleCloudGax.RequestOptions,
-      idempotent: Swift.Bool,
+      name: Swift.String,
       action: (Input, GoogleCloudGax.RequestOptions) async throws -> Output,
     ) async throws -> Output {
-      let loop = GoogleCloudGax._RetryLoop(
-        options: options, withDefault: self.options, idempotent: idempotent,
-      )
-      let attempt = { (attemptTimeout: Swift.Duration?) async throws -> Output in
-        var attemptOptions = options
-        attemptOptions.attemptTimeout = attemptTimeout
-        return try await action(request, attemptOptions)
+      var logger = logger
+      logger[metadataKey: "gcp.experimental.swift.request.id"] = "\(UUID())"
+      logger[metadataKey: "gcp.experimental.swift.method"] = .string(name)
+      logger.debug("enter  : \(request) \(options)")
+      do {
+        let output = try await action(request, options)
+        logger.debug("success: \(request) \(options) \(output)")
+        return output
+      } catch let error {
+        logger.debug("error  : \(request) \(options) \(error)")
+        throw error
       }
-      return try await loop.run(attempt: attempt)
     }
 
     public func createTagHold(
@@ -56,7 +64,7 @@ extension Clients {
       try await self._intercept(
         request: request,
         options: options,
-        idempotent: false,
+        name: "createTagHold",
         action: {
           (r: CreateTagHoldRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
@@ -71,7 +79,7 @@ extension Clients {
       try await self._intercept(
         request: request,
         options: options,
-        idempotent: false,
+        name: "deleteTagHold",
         action: {
           (r: DeleteTagHoldRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
@@ -82,14 +90,14 @@ extension Clients {
 
     public func listTagHolds(
       request: ListTagHoldsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagHoldsResponse {
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagHoldsResponse {
       try await self._intercept(
         request: request,
         options: options,
-        idempotent: true,
+        name: "listTagHolds",
         action: {
           (r: ListTagHoldsRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.ListTagHoldsResponse
+            -> GoogleCloudResourceManagerV3.ListTagHoldsResponse
           in
           return try await self.inner.listTagHolds(request: r, options: o)
         })
@@ -101,7 +109,7 @@ extension Clients {
       try await self._intercept(
         request: request,
         options: options,
-        idempotent: true,
+        name: "getOperation",
         action: {
           (r: GoogleLongrunning.GetOperationRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation

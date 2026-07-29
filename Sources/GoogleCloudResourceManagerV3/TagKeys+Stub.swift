@@ -25,29 +25,29 @@ import GoogleRpc
 import GoogleCloudGax
 
 extension Clients {
-  protocol TagValuesStub {
-    func listTagValues(
-      request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagValuesResponse
+  protocol TagKeysStub {
+    func listTagKeys(
+      request: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagKeysResponse
 
-    func getTagValue(
-      request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue
+    func getTagKey(
+      request: GetTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey
 
-    func getNamespacedTagValue(
-      request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue
+    func getNamespacedTagKey(
+      request: GetNamespacedTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey
 
-    func createTagValue(
-      request: CreateTagValueRequest, options: GoogleCloudGax.RequestOptions
+    func createTagKey(
+      request: CreateTagKeyRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func updateTagValue(
-      request: UpdateTagValueRequest, options: GoogleCloudGax.RequestOptions
+    func updateTagKey(
+      request: UpdateTagKeyRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func deleteTagValue(
-      request: DeleteTagValueRequest, options: GoogleCloudGax.RequestOptions
+    func deleteTagKey(
+      request: DeleteTagKeyRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
     func getIamPolicy(
@@ -67,7 +67,7 @@ extension Clients {
     ) async throws -> GoogleLongrunning.Operation
   }
 
-  class TagValuesTransport: TagValuesStub {
+  class TagKeysTransport: TagKeysStub {
     let inner: GoogleCloudGax.HTTPClient
 
     public init(_ options: GoogleCloudGax.ClientOptions = .init()) throws {
@@ -75,11 +75,11 @@ extension Clients {
         from: options, withDefaultEndpoint: "https://cloudresourcemanager.googleapis.com")
     }
 
-    public func listTagValues(
-      request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagValuesResponse {
+    public func listTagKeys(
+      request: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagKeysResponse {
       let path = try { () throws -> Swift.String in
-        return "/v3/tagValues"
+        return "/v3/tagKeys"
       }()
       var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
@@ -93,12 +93,12 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.ListTagValuesResponse.self, from: data)
+        GoogleCloudResourceManagerV3.ListTagKeysResponse.self, from: data)
     }
 
-    public func getTagValue(
-      request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+    public func getTagKey(
+      request: GetTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -113,14 +113,14 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.TagValue.self, from: data)
+        GoogleCloudResourceManagerV3.TagKey.self, from: data)
     }
 
-    public func getNamespacedTagValue(
-      request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+    public func getNamespacedTagKey(
+      request: GetNamespacedTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey {
       let path = try { () throws -> Swift.String in
-        return "/v3/tagValues/namespaced"
+        return "/v3/tagKeys/namespaced"
       }()
       var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
@@ -132,14 +132,14 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.TagValue.self, from: data)
+        GoogleCloudResourceManagerV3.TagKey.self, from: data)
     }
 
-    public func createTagValue(
-      request: CreateTagValueRequest, options: GoogleCloudGax.RequestOptions
+    public func createTagKey(
+      request: CreateTagKeyRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
-        return "/v3/tagValues"
+        return "/v3/tagKeys"
       }()
       var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
@@ -149,7 +149,7 @@ extension Clients {
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "POST"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      if let body = request.tagValue {
+      if let body = request.tagKey {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONEncoder().encode(body)
       }
@@ -158,13 +158,12 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func updateTagValue(
-      request: UpdateTagValueRequest, options: GoogleCloudGax.RequestOptions
+    public func updateTagKey(
+      request: UpdateTagKeyRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
-        guard let pathVariable0 = request.tagValue.map({ $0.name }), !pathVariable0.isEmpty else {
-          throw GoogleCloudGax.RequestError.binding(
-            "'request.tag_value.name' is not set or is empty")
+        guard let pathVariable0 = request.tagKey.map({ $0.name }), !pathVariable0.isEmpty else {
+          throw GoogleCloudGax.RequestError.binding("'request.tag_key.name' is not set or is empty")
         }
         return "/v3/\(pathVariable0)"
       }()
@@ -177,7 +176,7 @@ extension Clients {
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "PATCH"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      if let body = request.tagValue {
+      if let body = request.tagKey {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONEncoder().encode(body)
       }
@@ -186,8 +185,8 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func deleteTagValue(
-      request: DeleteTagValueRequest, options: GoogleCloudGax.RequestOptions
+    public func deleteTagKey(
+      request: DeleteTagKeyRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {

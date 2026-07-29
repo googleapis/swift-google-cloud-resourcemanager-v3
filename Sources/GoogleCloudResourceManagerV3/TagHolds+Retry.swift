@@ -24,11 +24,11 @@ import GoogleRpc
 import GoogleCloudGax
 
 extension Clients {
-  final class TagBindingsRetry: TagBindingsStub {
-    let inner: any TagBindingsStub
+  final class TagHoldsRetry: TagHoldsStub {
+    let inner: any TagHoldsStub
     let options: GoogleCloudGax.ClientOptions
 
-    public init(_ inner: any TagBindingsStub, options: GoogleCloudGax.ClientOptions) {
+    public init(_ inner: any TagHoldsStub, options: GoogleCloudGax.ClientOptions) {
       self.inner = inner
       self.options = options
     }
@@ -50,63 +50,48 @@ extension Clients {
       return try await loop.run(attempt: attempt)
     }
 
-    public func listTagBindings(
-      request: ListTagBindingsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse {
-      try await self._intercept(
-        request: request,
-        options: options,
-        idempotent: true,
-        action: {
-          (r: ListTagBindingsRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse
-          in
-          return try await self.inner.listTagBindings(request: r, options: o)
-        })
-    }
-
-    public func createTagBinding(
-      request: CreateTagBindingRequest, options: GoogleCloudGax.RequestOptions
+    public func createTagHold(
+      request: CreateTagHoldRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: false,
         action: {
-          (r: CreateTagBindingRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: CreateTagHoldRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.createTagBinding(request: r, options: o)
+          return try await self.inner.createTagHold(request: r, options: o)
         })
     }
 
-    public func deleteTagBinding(
-      request: DeleteTagBindingRequest, options: GoogleCloudGax.RequestOptions
+    public func deleteTagHold(
+      request: DeleteTagHoldRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: false,
         action: {
-          (r: DeleteTagBindingRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: DeleteTagHoldRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.deleteTagBinding(request: r, options: o)
+          return try await self.inner.deleteTagHold(request: r, options: o)
         })
     }
 
-    public func listEffectiveTags(
-      request: ListEffectiveTagsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse {
+    public func listTagHolds(
+      request: ListTagHoldsRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagHoldsResponse {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: true,
         action: {
-          (r: ListEffectiveTagsRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse
+          (r: ListTagHoldsRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.ListTagHoldsResponse
           in
-          return try await self.inner.listEffectiveTags(request: r, options: o)
+          return try await self.inner.listTagHolds(request: r, options: o)
         })
     }
 

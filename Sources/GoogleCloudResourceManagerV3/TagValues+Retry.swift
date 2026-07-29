@@ -53,14 +53,14 @@ extension Clients {
 
     public func listTagValues(
       request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagValuesResponse {
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagValuesResponse {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: true,
         action: {
           (r: ListTagValuesRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.ListTagValuesResponse
+            -> GoogleCloudResourceManagerV3.ListTagValuesResponse
           in
           return try await self.inner.listTagValues(request: r, options: o)
         })
@@ -68,14 +68,14 @@ extension Clients {
 
     public func getTagValue(
       request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: true,
         action: {
           (r: GetTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.TagValue
+            -> GoogleCloudResourceManagerV3.TagValue
           in
           return try await self.inner.getTagValue(request: r, options: o)
         })
@@ -83,14 +83,14 @@ extension Clients {
 
     public func getNamespacedTagValue(
       request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: true,
         action: {
           (r: GetNamespacedTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.TagValue
+            -> GoogleCloudResourceManagerV3.TagValue
           in
           return try await self.inner.getNamespacedTagValue(request: r, options: o)
         })

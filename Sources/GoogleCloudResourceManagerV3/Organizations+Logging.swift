@@ -60,14 +60,14 @@ extension Clients {
 
     public func getOrganization(
       request: GetOrganizationRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Organization {
+    ) async throws -> GoogleCloudResourceManagerV3.Organization {
       try await self._intercept(
         request: request,
         options: options,
         name: "getOrganization",
         action: {
           (r: GetOrganizationRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.Organization
+            -> GoogleCloudResourceManagerV3.Organization
           in
           return try await self.inner.getOrganization(request: r, options: o)
         })
@@ -75,14 +75,14 @@ extension Clients {
 
     public func searchOrganizations(
       request: SearchOrganizationsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse {
+    ) async throws -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse {
       try await self._intercept(
         request: request,
         options: options,
         name: "searchOrganizations",
         action: {
           (r: SearchOrganizationsRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse
+            -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse
           in
           return try await self.inner.searchOrganizations(request: r, options: o)
         })

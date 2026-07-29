@@ -27,11 +27,11 @@ extension Clients {
   protocol OrganizationsStub {
     func getOrganization(
       request: GetOrganizationRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Organization
+    ) async throws -> GoogleCloudResourceManagerV3.Organization
 
     func searchOrganizations(
       request: SearchOrganizationsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse
+    ) async throws -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse
 
     func getIamPolicy(
       request: GoogleIAMV1.GetIamPolicyRequest, options: GoogleCloudGax.RequestOptions
@@ -60,7 +60,7 @@ extension Clients {
 
     public func getOrganization(
       request: GetOrganizationRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Organization {
+    ) async throws -> GoogleCloudResourceManagerV3.Organization {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -75,12 +75,12 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.Organization.self, from: data)
+        GoogleCloudResourceManagerV3.Organization.self, from: data)
     }
 
     public func searchOrganizations(
       request: SearchOrganizationsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse {
+    ) async throws -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse {
       let path = try { () throws -> Swift.String in
         return "/v3/organizations:search"
       }()
@@ -96,7 +96,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.SearchOrganizationsResponse.self, from: data)
+        GoogleCloudResourceManagerV3.SearchOrganizationsResponse.self, from: data)
     }
 
     public func getIamPolicy(

@@ -44,7 +44,7 @@ public class OrganizationsClient: Clients.OrganizationsProtocol {
   /// @Snippet(path: "Organizations_GetOrganization")
   public func getOrganization(
     request: GetOrganizationRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.Organization {
+  ) async throws -> GoogleCloudResourceManagerV3.Organization {
     try await self.inner.getOrganization(request: request, options: options)
   }
 
@@ -59,7 +59,7 @@ public class OrganizationsClient: Clients.OrganizationsProtocol {
   /// @Snippet(path: "Organizations_SearchOrganizations")
   public func searchOrganizations(
     request: SearchOrganizationsRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse {
     try await self.inner.searchOrganizations(request: request, options: options)
   }
 
@@ -76,7 +76,7 @@ public class OrganizationsClient: Clients.OrganizationsProtocol {
     byItem: SearchOrganizationsRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<Organization, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse
       in
       var request = byItem
       request.pageToken = token
@@ -147,16 +147,16 @@ extension Clients {
   public protocol OrganizationsProtocol {
     /// See `OrganizationsClient.getOrganization`.
     func getOrganization(request: GetOrganizationRequest) async throws
-      -> GoogleCloudResourcemanagerV3.Organization
+      -> GoogleCloudResourceManagerV3.Organization
 
     /// See `OrganizationsClient.getOrganization`.
     func getOrganization(
       name: Swift.String,
-    ) async throws -> GoogleCloudResourcemanagerV3.Organization
+    ) async throws -> GoogleCloudResourceManagerV3.Organization
 
     /// See `OrganizationsClient.searchOrganizations`.
     func searchOrganizations(request: SearchOrganizationsRequest) async throws
-      -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse
+      -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse
 
     /// See `OrganizationsClient.searchOrganizations`.
     func searchOrganizations(
@@ -197,12 +197,12 @@ extension Clients {
     /// See `OrganizationsClient.getOrganization`.
     func getOrganization(
       request: GetOrganizationRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Organization
+    ) async throws -> GoogleCloudResourceManagerV3.Organization
 
     /// See `OrganizationsClient.searchOrganizations`.
     func searchOrganizations(
       request: SearchOrganizationsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse
+    ) async throws -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse
 
     /// See `OrganizationsClient.searchOrganizations`.
     func searchOrganizations(
@@ -229,20 +229,20 @@ extension Clients {
 // Default implementations
 extension Clients.OrganizationsProtocol {
   public func getOrganization(request: GetOrganizationRequest) async throws
-    -> GoogleCloudResourcemanagerV3.Organization
+    -> GoogleCloudResourceManagerV3.Organization
   {
     try await self.getOrganization(request: request, options: .init())
   }
 
   public func getOrganization(
     request: GetOrganizationRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.Organization {
+  ) async throws -> GoogleCloudResourceManagerV3.Organization {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
   public func getOrganization(
     name: Swift.String,
-  ) async throws -> GoogleCloudResourcemanagerV3.Organization {
+  ) async throws -> GoogleCloudResourceManagerV3.Organization {
     let request = GetOrganizationRequest().with {
       $0.name = name
     }
@@ -250,14 +250,14 @@ extension Clients.OrganizationsProtocol {
   }
 
   public func searchOrganizations(request: SearchOrganizationsRequest) async throws
-    -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse
+    -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse
   {
     try await self.searchOrganizations(request: request, options: .init())
   }
 
   public func searchOrganizations(
     request: SearchOrganizationsRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
@@ -271,7 +271,7 @@ extension Clients.OrganizationsProtocol {
     byItem: SearchOrganizationsRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<Organization, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.SearchOrganizationsResponse
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse
       in
       throw GoogleCloudGax.RequestError.unimplemented
     }

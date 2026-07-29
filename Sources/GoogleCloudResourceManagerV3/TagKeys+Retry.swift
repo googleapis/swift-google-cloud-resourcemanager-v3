@@ -25,11 +25,11 @@ import GoogleRpc
 import GoogleCloudGax
 
 extension Clients {
-  final class ProjectsRetry: ProjectsStub {
-    let inner: any ProjectsStub
+  final class TagKeysRetry: TagKeysStub {
+    let inner: any TagKeysStub
     let options: GoogleCloudGax.ClientOptions
 
-    public init(_ inner: any ProjectsStub, options: GoogleCloudGax.ClientOptions) {
+    public init(_ inner: any TagKeysStub, options: GoogleCloudGax.ClientOptions) {
       self.inner = inner
       self.options = options
     }
@@ -51,123 +51,93 @@ extension Clients {
       return try await loop.run(attempt: attempt)
     }
 
-    public func getProject(
-      request: GetProjectRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Project {
+    public func listTagKeys(
+      request: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagKeysResponse {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: true,
         action: {
-          (r: GetProjectRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.Project
+          (r: ListTagKeysRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.ListTagKeysResponse
           in
-          return try await self.inner.getProject(request: r, options: o)
+          return try await self.inner.listTagKeys(request: r, options: o)
         })
     }
 
-    public func listProjects(
-      request: ListProjectsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListProjectsResponse {
+    public func getTagKey(
+      request: GetTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: true,
         action: {
-          (r: ListProjectsRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.ListProjectsResponse
+          (r: GetTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.TagKey
           in
-          return try await self.inner.listProjects(request: r, options: o)
+          return try await self.inner.getTagKey(request: r, options: o)
         })
     }
 
-    public func searchProjects(
-      request: SearchProjectsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchProjectsResponse {
+    public func getNamespacedTagKey(
+      request: GetNamespacedTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: true,
         action: {
-          (r: SearchProjectsRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.SearchProjectsResponse
+          (r: GetNamespacedTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.TagKey
           in
-          return try await self.inner.searchProjects(request: r, options: o)
+          return try await self.inner.getNamespacedTagKey(request: r, options: o)
         })
     }
 
-    public func createProject(
-      request: CreateProjectRequest, options: GoogleCloudGax.RequestOptions
+    public func createTagKey(
+      request: CreateTagKeyRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: false,
         action: {
-          (r: CreateProjectRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: CreateTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.createProject(request: r, options: o)
+          return try await self.inner.createTagKey(request: r, options: o)
         })
     }
 
-    public func updateProject(
-      request: UpdateProjectRequest, options: GoogleCloudGax.RequestOptions
+    public func updateTagKey(
+      request: UpdateTagKeyRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: false,
         action: {
-          (r: UpdateProjectRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: UpdateTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.updateProject(request: r, options: o)
+          return try await self.inner.updateTagKey(request: r, options: o)
         })
     }
 
-    public func moveProject(
-      request: MoveProjectRequest, options: GoogleCloudGax.RequestOptions
+    public func deleteTagKey(
+      request: DeleteTagKeyRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: false,
         action: {
-          (r: MoveProjectRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: DeleteTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.moveProject(request: r, options: o)
-        })
-    }
-
-    public func deleteProject(
-      request: DeleteProjectRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
-      try await self._intercept(
-        request: request,
-        options: options,
-        idempotent: false,
-        action: {
-          (r: DeleteProjectRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleLongrunning.Operation
-          in
-          return try await self.inner.deleteProject(request: r, options: o)
-        })
-    }
-
-    public func undeleteProject(
-      request: UndeleteProjectRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
-      try await self._intercept(
-        request: request,
-        options: options,
-        idempotent: false,
-        action: {
-          (r: UndeleteProjectRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleLongrunning.Operation
-          in
-          return try await self.inner.undeleteProject(request: r, options: o)
+          return try await self.inner.deleteTagKey(request: r, options: o)
         })
     }
 

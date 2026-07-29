@@ -26,15 +26,15 @@ import GoogleCloudGax
 import struct Logging.Logger
 
 extension Clients {
-  final class TagKeysLogging: TagKeysStub {
-    let inner: any TagKeysStub
+  final class TagValuesLogging: TagValuesStub {
+    let inner: any TagValuesStub
     let logger: Logger
 
-    public init(_ inner: any TagKeysStub, logger: Logger) {
+    public init(_ inner: any TagValuesStub, logger: Logger) {
       var logger = logger
       logger[metadataKey: "gcp.artifact.id"] = "google-cloud-resourcemanager-v3"
       logger[metadataKey: "gcp.client.service"] = "cloudresourcemanager"
-      logger[metadataKey: "gcp.experimental.swift.client"] = "TagKeys"
+      logger[metadataKey: "gcp.experimental.swift.client"] = "TagValues"
       self.inner = inner
       self.logger = logger
     }
@@ -59,93 +59,93 @@ extension Clients {
       }
     }
 
-    public func listTagKeys(
-      request: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagKeysResponse {
+    public func listTagValues(
+      request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagValuesResponse {
       try await self._intercept(
         request: request,
         options: options,
-        name: "listTagKeys",
+        name: "listTagValues",
         action: {
-          (r: ListTagKeysRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.ListTagKeysResponse
+          (r: ListTagValuesRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.ListTagValuesResponse
           in
-          return try await self.inner.listTagKeys(request: r, options: o)
+          return try await self.inner.listTagValues(request: r, options: o)
         })
     }
 
-    public func getTagKey(
-      request: GetTagKeyRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+    public func getTagValue(
+      request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue {
       try await self._intercept(
         request: request,
         options: options,
-        name: "getTagKey",
+        name: "getTagValue",
         action: {
-          (r: GetTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.TagKey
+          (r: GetTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.TagValue
           in
-          return try await self.inner.getTagKey(request: r, options: o)
+          return try await self.inner.getTagValue(request: r, options: o)
         })
     }
 
-    public func getNamespacedTagKey(
-      request: GetNamespacedTagKeyRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+    public func getNamespacedTagValue(
+      request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue {
       try await self._intercept(
         request: request,
         options: options,
-        name: "getNamespacedTagKey",
+        name: "getNamespacedTagValue",
         action: {
-          (r: GetNamespacedTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.TagKey
+          (r: GetNamespacedTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.TagValue
           in
-          return try await self.inner.getNamespacedTagKey(request: r, options: o)
+          return try await self.inner.getNamespacedTagValue(request: r, options: o)
         })
     }
 
-    public func createTagKey(
-      request: CreateTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    public func createTagValue(
+      request: CreateTagValueRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
-        name: "createTagKey",
+        name: "createTagValue",
         action: {
-          (r: CreateTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: CreateTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.createTagKey(request: r, options: o)
+          return try await self.inner.createTagValue(request: r, options: o)
         })
     }
 
-    public func updateTagKey(
-      request: UpdateTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    public func updateTagValue(
+      request: UpdateTagValueRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
-        name: "updateTagKey",
+        name: "updateTagValue",
         action: {
-          (r: UpdateTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: UpdateTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.updateTagKey(request: r, options: o)
+          return try await self.inner.updateTagValue(request: r, options: o)
         })
     }
 
-    public func deleteTagKey(
-      request: DeleteTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    public func deleteTagValue(
+      request: DeleteTagValueRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
-        name: "deleteTagKey",
+        name: "deleteTagValue",
         action: {
-          (r: DeleteTagKeyRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: DeleteTagValueRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.deleteTagKey(request: r, options: o)
+          return try await self.inner.deleteTagValue(request: r, options: o)
         })
     }
 

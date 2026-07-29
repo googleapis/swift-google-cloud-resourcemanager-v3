@@ -25,29 +25,37 @@ import GoogleRpc
 import GoogleCloudGax
 
 extension Clients {
-  protocol TagKeysStub {
-    func listTagKeys(
-      request: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagKeysResponse
+  protocol FoldersStub {
+    func getFolder(
+      request: GetFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.Folder
 
-    func getTagKey(
-      request: GetTagKeyRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey
+    func listFolders(
+      request: ListFoldersRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListFoldersResponse
 
-    func getNamespacedTagKey(
-      request: GetNamespacedTagKeyRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey
+    func searchFolders(
+      request: SearchFoldersRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.SearchFoldersResponse
 
-    func createTagKey(
-      request: CreateTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    func createFolder(
+      request: CreateFolderRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func updateTagKey(
-      request: UpdateTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    func updateFolder(
+      request: UpdateFolderRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func deleteTagKey(
-      request: DeleteTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    func moveFolder(
+      request: MoveFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleLongrunning.Operation
+
+    func deleteFolder(
+      request: DeleteFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleLongrunning.Operation
+
+    func undeleteFolder(
+      request: UndeleteFolderRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
     func getIamPolicy(
@@ -67,7 +75,7 @@ extension Clients {
     ) async throws -> GoogleLongrunning.Operation
   }
 
-  class TagKeysTransport: TagKeysStub {
+  class FoldersTransport: FoldersStub {
     let inner: GoogleCloudGax.HTTPClient
 
     public init(_ options: GoogleCloudGax.ClientOptions = .init()) throws {
@@ -75,30 +83,9 @@ extension Clients {
         from: options, withDefaultEndpoint: "https://cloudresourcemanager.googleapis.com")
     }
 
-    public func listTagKeys(
-      request: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagKeysResponse {
-      let path = try { () throws -> Swift.String in
-        return "/v3/tagKeys"
-      }()
-      var query = [
-        URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
-      ]
-      let encoder = GoogleCloudGax.QueryParameterEncoder()
-      query.append(contentsOf: try encoder.encode(request.parent, prefix: "parent"))
-      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
-      query.append(contentsOf: try encoder.encode(request.pageToken, prefix: "pageToken"))
-      var req = try await self.inner.Request(path: path, query: query)
-      req.httpMethod = "GET"
-      req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      let (data, _) = try await self.inner.rpc(for: req).get()
-      return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.ListTagKeysResponse.self, from: data)
-    }
-
-    public func getTagKey(
-      request: GetTagKeyRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+    public func getFolder(
+      request: GetFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.Folder {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -113,43 +100,65 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.TagKey.self, from: data)
+        GoogleCloudResourceManagerV3.Folder.self, from: data)
     }
 
-    public func getNamespacedTagKey(
-      request: GetNamespacedTagKeyRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+    public func listFolders(
+      request: ListFoldersRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListFoldersResponse {
       let path = try { () throws -> Swift.String in
-        return "/v3/tagKeys/namespaced"
+        return "/v3/folders"
       }()
       var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
       ]
       let encoder = GoogleCloudGax.QueryParameterEncoder()
-      query.append(contentsOf: try encoder.encode(request.name, prefix: "name"))
+      query.append(contentsOf: try encoder.encode(request.parent, prefix: "parent"))
+      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
+      query.append(contentsOf: try encoder.encode(request.pageToken, prefix: "pageToken"))
+      query.append(contentsOf: try encoder.encode(request.showDeleted, prefix: "showDeleted"))
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "GET"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.TagKey.self, from: data)
+        GoogleCloudResourceManagerV3.ListFoldersResponse.self, from: data)
     }
 
-    public func createTagKey(
-      request: CreateTagKeyRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
+    public func searchFolders(
+      request: SearchFoldersRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.SearchFoldersResponse {
       let path = try { () throws -> Swift.String in
-        return "/v3/tagKeys"
+        return "/v3/folders:search"
       }()
       var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
       ]
       let encoder = GoogleCloudGax.QueryParameterEncoder()
-      query.append(contentsOf: try encoder.encode(request.validateOnly, prefix: "validateOnly"))
+      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
+      query.append(contentsOf: try encoder.encode(request.pageToken, prefix: "pageToken"))
+      query.append(contentsOf: try encoder.encode(request.query, prefix: "query"))
+      var req = try await self.inner.Request(path: path, query: query)
+      req.httpMethod = "GET"
+      req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
+      let (data, _) = try await self.inner.rpc(for: req).get()
+      return try GoogleCloudWkt._ProtoJSONDecoder().decode(
+        GoogleCloudResourceManagerV3.SearchFoldersResponse.self, from: data)
+    }
+
+    public func createFolder(
+      request: CreateFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleLongrunning.Operation {
+      let path = try { () throws -> Swift.String in
+        return "/v3/folders"
+      }()
+      let query = [
+        URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
+      ]
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "POST"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      if let body = request.tagKey {
+      if let body = request.folder {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONEncoder().encode(body)
       }
@@ -158,12 +167,12 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func updateTagKey(
-      request: UpdateTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    public func updateFolder(
+      request: UpdateFolderRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
-        guard let pathVariable0 = request.tagKey.map({ $0.name }), !pathVariable0.isEmpty else {
-          throw GoogleCloudGax.RequestError.binding("'request.tag_key.name' is not set or is empty")
+        guard let pathVariable0 = request.folder.map({ $0.name }), !pathVariable0.isEmpty else {
+          throw GoogleCloudGax.RequestError.binding("'request.folder.name' is not set or is empty")
         }
         return "/v3/\(pathVariable0)"
       }()
@@ -172,11 +181,10 @@ extension Clients {
       ]
       let encoder = GoogleCloudGax.QueryParameterEncoder()
       query.append(contentsOf: try encoder.encode(request.updateMask, prefix: "updateMask"))
-      query.append(contentsOf: try encoder.encode(request.validateOnly, prefix: "validateOnly"))
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "PATCH"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      if let body = request.tagKey {
+      if let body = request.folder {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONEncoder().encode(body)
       }
@@ -185,8 +193,30 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func deleteTagKey(
-      request: DeleteTagKeyRequest, options: GoogleCloudGax.RequestOptions
+    public func moveFolder(
+      request: MoveFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleLongrunning.Operation {
+      let path = try { () throws -> Swift.String in
+        guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
+          throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
+        }
+        return "/v3/\(pathVariable0):move"
+      }()
+      let query = [
+        URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
+      ]
+      var req = try await self.inner.Request(path: path, query: query)
+      req.httpMethod = "POST"
+      req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
+      req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+      req.httpBody = try JSONEncoder().encode(request)
+      let (data, _) = try await self.inner.rpc(for: req).get()
+      return try GoogleCloudWkt._ProtoJSONDecoder().decode(
+        GoogleLongrunning.Operation.self, from: data)
+    }
+
+    public func deleteFolder(
+      request: DeleteFolderRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
@@ -194,15 +224,34 @@ extension Clients {
         }
         return "/v3/\(pathVariable0)"
       }()
-      var query = [
+      let query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
       ]
-      let encoder = GoogleCloudGax.QueryParameterEncoder()
-      query.append(contentsOf: try encoder.encode(request.validateOnly, prefix: "validateOnly"))
-      query.append(contentsOf: try encoder.encode(request.etag, prefix: "etag"))
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "DELETE"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
+      let (data, _) = try await self.inner.rpc(for: req).get()
+      return try GoogleCloudWkt._ProtoJSONDecoder().decode(
+        GoogleLongrunning.Operation.self, from: data)
+    }
+
+    public func undeleteFolder(
+      request: UndeleteFolderRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleLongrunning.Operation {
+      let path = try { () throws -> Swift.String in
+        guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
+          throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
+        }
+        return "/v3/\(pathVariable0):undelete"
+      }()
+      let query = [
+        URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
+      ]
+      var req = try await self.inner.Request(path: path, query: query)
+      req.httpMethod = "POST"
+      req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
+      req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+      req.httpBody = try JSONEncoder().encode(request)
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
         GoogleLongrunning.Operation.self, from: data)

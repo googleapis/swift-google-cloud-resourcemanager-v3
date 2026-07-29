@@ -45,7 +45,7 @@ public class TagKeysClient: Clients.TagKeysProtocol {
   /// @Snippet(path: "TagKeys_ListTagKeys")
   public func listTagKeys(
     request: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.ListTagKeysResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.ListTagKeysResponse {
     try await self.inner.listTagKeys(request: request, options: options)
   }
 
@@ -56,7 +56,7 @@ public class TagKeysClient: Clients.TagKeysProtocol {
     byItem: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<TagKey, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.ListTagKeysResponse in
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.ListTagKeysResponse in
       var request = byItem
       request.pageToken = token
       return try await self.listTagKeys(request: request, options: options)
@@ -70,7 +70,7 @@ public class TagKeysClient: Clients.TagKeysProtocol {
   /// @Snippet(path: "TagKeys_GetTagKey")
   public func getTagKey(
     request: GetTagKeyRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+  ) async throws -> GoogleCloudResourceManagerV3.TagKey {
     try await self.inner.getTagKey(request: request, options: options)
   }
 
@@ -81,7 +81,7 @@ public class TagKeysClient: Clients.TagKeysProtocol {
   /// @Snippet(path: "TagKeys_GetNamespacedTagKey")
   public func getNamespacedTagKey(
     request: GetNamespacedTagKeyRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+  ) async throws -> GoogleCloudResourceManagerV3.TagKey {
     try await self.inner.getNamespacedTagKey(request: request, options: options)
   }
 
@@ -343,7 +343,7 @@ extension Clients {
   public protocol TagKeysProtocol {
     /// See `TagKeysClient.listTagKeys`.
     func listTagKeys(request: ListTagKeysRequest) async throws
-      -> GoogleCloudResourcemanagerV3.ListTagKeysResponse
+      -> GoogleCloudResourceManagerV3.ListTagKeysResponse
 
     /// See `TagKeysClient.listTagKeys`.
     func listTagKeys(
@@ -356,21 +356,21 @@ extension Clients {
     ) throws -> any AsyncSequence<TagKey, Swift.Error>
 
     /// See `TagKeysClient.getTagKey`.
-    func getTagKey(request: GetTagKeyRequest) async throws -> GoogleCloudResourcemanagerV3.TagKey
+    func getTagKey(request: GetTagKeyRequest) async throws -> GoogleCloudResourceManagerV3.TagKey
 
     /// See `TagKeysClient.getTagKey`.
     func getTagKey(
       name: Swift.String,
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey
 
     /// See `TagKeysClient.getNamespacedTagKey`.
     func getNamespacedTagKey(request: GetNamespacedTagKeyRequest) async throws
-      -> GoogleCloudResourcemanagerV3.TagKey
+      -> GoogleCloudResourceManagerV3.TagKey
 
     /// See `TagKeysClient.getNamespacedTagKey`.
     func getNamespacedTagKey(
       name: Swift.String,
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey
 
     /// See `TagKeysClient.createTagKey`.
     func createTagKey(request: CreateTagKeyRequest) async throws -> GoogleLongrunning.Operation
@@ -439,7 +439,7 @@ extension Clients {
     /// See `TagKeysClient.listTagKeys`.
     func listTagKeys(
       request: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagKeysResponse
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagKeysResponse
 
     /// See `TagKeysClient.listTagKeys`.
     func listTagKeys(
@@ -449,12 +449,12 @@ extension Clients {
     /// See `TagKeysClient.getTagKey`.
     func getTagKey(
       request: GetTagKeyRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey
 
     /// See `TagKeysClient.getNamespacedTagKey`.
     func getNamespacedTagKey(
       request: GetNamespacedTagKeyRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagKey
+    ) async throws -> GoogleCloudResourceManagerV3.TagKey
 
     /// See `TagKeysClient.createTagKey`.
     func createTagKey(
@@ -506,14 +506,14 @@ extension Clients {
 // Default implementations
 extension Clients.TagKeysProtocol {
   public func listTagKeys(request: ListTagKeysRequest) async throws
-    -> GoogleCloudResourcemanagerV3.ListTagKeysResponse
+    -> GoogleCloudResourceManagerV3.ListTagKeysResponse
   {
     try await self.listTagKeys(request: request, options: .init())
   }
 
   public func listTagKeys(
     request: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.ListTagKeysResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.ListTagKeysResponse {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
@@ -527,7 +527,7 @@ extension Clients.TagKeysProtocol {
     byItem: ListTagKeysRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<TagKey, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.ListTagKeysResponse in
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.ListTagKeysResponse in
       throw GoogleCloudGax.RequestError.unimplemented
     }
     return GoogleCloudGax.PaginatedResponseSequence(listRpc: listRpc)
@@ -543,20 +543,20 @@ extension Clients.TagKeysProtocol {
   }
 
   public func getTagKey(request: GetTagKeyRequest) async throws
-    -> GoogleCloudResourcemanagerV3.TagKey
+    -> GoogleCloudResourceManagerV3.TagKey
   {
     try await self.getTagKey(request: request, options: .init())
   }
 
   public func getTagKey(
     request: GetTagKeyRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+  ) async throws -> GoogleCloudResourceManagerV3.TagKey {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
   public func getTagKey(
     name: Swift.String,
-  ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+  ) async throws -> GoogleCloudResourceManagerV3.TagKey {
     let request = GetTagKeyRequest().with {
       $0.name = name
     }
@@ -564,20 +564,20 @@ extension Clients.TagKeysProtocol {
   }
 
   public func getNamespacedTagKey(request: GetNamespacedTagKeyRequest) async throws
-    -> GoogleCloudResourcemanagerV3.TagKey
+    -> GoogleCloudResourceManagerV3.TagKey
   {
     try await self.getNamespacedTagKey(request: request, options: .init())
   }
 
   public func getNamespacedTagKey(
     request: GetNamespacedTagKeyRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+  ) async throws -> GoogleCloudResourceManagerV3.TagKey {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
   public func getNamespacedTagKey(
     name: Swift.String,
-  ) async throws -> GoogleCloudResourcemanagerV3.TagKey {
+  ) async throws -> GoogleCloudResourceManagerV3.TagKey {
     let request = GetNamespacedTagKeyRequest().with {
       $0.name = name
     }

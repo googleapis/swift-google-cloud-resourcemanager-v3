@@ -49,7 +49,7 @@ public class TagBindingsClient: Clients.TagBindingsProtocol {
   /// @Snippet(path: "TagBindings_ListTagBindings")
   public func listTagBindings(
     request: ListTagBindingsRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.ListTagBindingsResponse {
     try await self.inner.listTagBindings(request: request, options: options)
   }
 
@@ -64,7 +64,7 @@ public class TagBindingsClient: Clients.TagBindingsProtocol {
     byItem: ListTagBindingsRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<TagBinding, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse in
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.ListTagBindingsResponse in
       var request = byItem
       request.pageToken = token
       return try await self.listTagBindings(request: request, options: options)
@@ -196,7 +196,7 @@ public class TagBindingsClient: Clients.TagBindingsProtocol {
   /// @Snippet(path: "TagBindings_ListEffectiveTags")
   public func listEffectiveTags(
     request: ListEffectiveTagsRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse {
     try await self.inner.listEffectiveTags(request: request, options: options)
   }
 
@@ -208,7 +208,7 @@ public class TagBindingsClient: Clients.TagBindingsProtocol {
     byItem: ListEffectiveTagsRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<EffectiveTag, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse
       in
       var request = byItem
       request.pageToken = token
@@ -238,7 +238,7 @@ extension Clients {
   public protocol TagBindingsProtocol {
     /// See `TagBindingsClient.listTagBindings`.
     func listTagBindings(request: ListTagBindingsRequest) async throws
-      -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse
+      -> GoogleCloudResourceManagerV3.ListTagBindingsResponse
 
     /// See `TagBindingsClient.listTagBindings`.
     func listTagBindings(
@@ -278,7 +278,7 @@ extension Clients {
 
     /// See `TagBindingsClient.listEffectiveTags`.
     func listEffectiveTags(request: ListEffectiveTagsRequest) async throws
-      -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse
+      -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse
 
     /// See `TagBindingsClient.listEffectiveTags`.
     func listEffectiveTags(
@@ -293,7 +293,7 @@ extension Clients {
     /// See `TagBindingsClient.listTagBindings`.
     func listTagBindings(
       request: ListTagBindingsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagBindingsResponse
 
     /// See `TagBindingsClient.listTagBindings`.
     func listTagBindings(
@@ -323,7 +323,7 @@ extension Clients {
     /// See `TagBindingsClient.listEffectiveTags`.
     func listEffectiveTags(
       request: ListEffectiveTagsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse
+    ) async throws -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse
 
     /// See `TagBindingsClient.listEffectiveTags`.
     func listEffectiveTags(
@@ -335,14 +335,14 @@ extension Clients {
 // Default implementations
 extension Clients.TagBindingsProtocol {
   public func listTagBindings(request: ListTagBindingsRequest) async throws
-    -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse
+    -> GoogleCloudResourceManagerV3.ListTagBindingsResponse
   {
     try await self.listTagBindings(request: request, options: .init())
   }
 
   public func listTagBindings(
     request: ListTagBindingsRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.ListTagBindingsResponse {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
@@ -356,7 +356,7 @@ extension Clients.TagBindingsProtocol {
     byItem: ListTagBindingsRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<TagBinding, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse in
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.ListTagBindingsResponse in
       throw GoogleCloudGax.RequestError.unimplemented
     }
     return GoogleCloudGax.PaginatedResponseSequence(listRpc: listRpc)
@@ -446,14 +446,14 @@ extension Clients.TagBindingsProtocol {
   }
 
   public func listEffectiveTags(request: ListEffectiveTagsRequest) async throws
-    -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse
+    -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse
   {
     try await self.listEffectiveTags(request: request, options: .init())
   }
 
   public func listEffectiveTags(
     request: ListEffectiveTagsRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
@@ -467,7 +467,7 @@ extension Clients.TagBindingsProtocol {
     byItem: ListEffectiveTagsRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<EffectiveTag, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse
       in
       throw GoogleCloudGax.RequestError.unimplemented
     }

@@ -25,15 +25,15 @@ import GoogleCloudGax
 import struct Logging.Logger
 
 extension Clients {
-  final class TagHoldsLogging: TagHoldsStub {
-    let inner: any TagHoldsStub
+  final class TagBindingsLogging: TagBindingsStub {
+    let inner: any TagBindingsStub
     let logger: Logger
 
-    public init(_ inner: any TagHoldsStub, logger: Logger) {
+    public init(_ inner: any TagBindingsStub, logger: Logger) {
       var logger = logger
       logger[metadataKey: "gcp.artifact.id"] = "google-cloud-resourcemanager-v3"
       logger[metadataKey: "gcp.client.service"] = "cloudresourcemanager"
-      logger[metadataKey: "gcp.experimental.swift.client"] = "TagHolds"
+      logger[metadataKey: "gcp.experimental.swift.client"] = "TagBindings"
       self.inner = inner
       self.logger = logger
     }
@@ -58,48 +58,63 @@ extension Clients {
       }
     }
 
-    public func createTagHold(
-      request: CreateTagHoldRequest, options: GoogleCloudGax.RequestOptions
+    public func listTagBindings(
+      request: ListTagBindingsRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagBindingsResponse {
+      try await self._intercept(
+        request: request,
+        options: options,
+        name: "listTagBindings",
+        action: {
+          (r: ListTagBindingsRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.ListTagBindingsResponse
+          in
+          return try await self.inner.listTagBindings(request: r, options: o)
+        })
+    }
+
+    public func createTagBinding(
+      request: CreateTagBindingRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
-        name: "createTagHold",
+        name: "createTagBinding",
         action: {
-          (r: CreateTagHoldRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: CreateTagBindingRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.createTagHold(request: r, options: o)
+          return try await self.inner.createTagBinding(request: r, options: o)
         })
     }
 
-    public func deleteTagHold(
-      request: DeleteTagHoldRequest, options: GoogleCloudGax.RequestOptions
+    public func deleteTagBinding(
+      request: DeleteTagBindingRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       try await self._intercept(
         request: request,
         options: options,
-        name: "deleteTagHold",
+        name: "deleteTagBinding",
         action: {
-          (r: DeleteTagHoldRequest, o: GoogleCloudGax.RequestOptions) async throws
+          (r: DeleteTagBindingRequest, o: GoogleCloudGax.RequestOptions) async throws
             -> GoogleLongrunning.Operation
           in
-          return try await self.inner.deleteTagHold(request: r, options: o)
+          return try await self.inner.deleteTagBinding(request: r, options: o)
         })
     }
 
-    public func listTagHolds(
-      request: ListTagHoldsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagHoldsResponse {
+    public func listEffectiveTags(
+      request: ListEffectiveTagsRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse {
       try await self._intercept(
         request: request,
         options: options,
-        name: "listTagHolds",
+        name: "listEffectiveTags",
         action: {
-          (r: ListTagHoldsRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.ListTagHoldsResponse
+          (r: ListEffectiveTagsRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse
           in
-          return try await self.inner.listTagHolds(request: r, options: o)
+          return try await self.inner.listEffectiveTags(request: r, options: o)
         })
     }
 

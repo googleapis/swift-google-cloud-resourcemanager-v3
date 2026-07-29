@@ -35,7 +35,7 @@ extension Clients {
 
     func listTagHolds(
       request: ListTagHoldsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagHoldsResponse
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagHoldsResponse
 
     func getOperation(
       request: GoogleLongrunning.GetOperationRequest, options: GoogleCloudGax.RequestOptions
@@ -100,7 +100,7 @@ extension Clients {
 
     public func listTagHolds(
       request: ListTagHoldsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagHoldsResponse {
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagHoldsResponse {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.parent as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.parent' is not set or is empty")
@@ -119,7 +119,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.ListTagHoldsResponse.self, from: data)
+        GoogleCloudResourceManagerV3.ListTagHoldsResponse.self, from: data)
     }
 
     public func getOperation(

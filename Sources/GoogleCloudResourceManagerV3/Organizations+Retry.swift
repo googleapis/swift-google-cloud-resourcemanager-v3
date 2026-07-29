@@ -21,15 +21,14 @@ import Foundation
 import GoogleCloudWkt
 import GoogleIAMV1
 import GoogleLongrunning
-import GoogleRpc
 import GoogleCloudGax
 
 extension Clients {
-  final class FoldersRetry: FoldersStub {
-    let inner: any FoldersStub
+  final class OrganizationsRetry: OrganizationsStub {
+    let inner: any OrganizationsStub
     let options: GoogleCloudGax.ClientOptions
 
-    public init(_ inner: any FoldersStub, options: GoogleCloudGax.ClientOptions) {
+    public init(_ inner: any OrganizationsStub, options: GoogleCloudGax.ClientOptions) {
       self.inner = inner
       self.options = options
     }
@@ -51,123 +50,33 @@ extension Clients {
       return try await loop.run(attempt: attempt)
     }
 
-    public func getFolder(
-      request: GetFolderRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Folder {
+    public func getOrganization(
+      request: GetOrganizationRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.Organization {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: true,
         action: {
-          (r: GetFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.Folder
+          (r: GetOrganizationRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.Organization
           in
-          return try await self.inner.getFolder(request: r, options: o)
+          return try await self.inner.getOrganization(request: r, options: o)
         })
     }
 
-    public func listFolders(
-      request: ListFoldersRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListFoldersResponse {
+    public func searchOrganizations(
+      request: SearchOrganizationsRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse {
       try await self._intercept(
         request: request,
         options: options,
         idempotent: true,
         action: {
-          (r: ListFoldersRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.ListFoldersResponse
+          (r: SearchOrganizationsRequest, o: GoogleCloudGax.RequestOptions) async throws
+            -> GoogleCloudResourceManagerV3.SearchOrganizationsResponse
           in
-          return try await self.inner.listFolders(request: r, options: o)
-        })
-    }
-
-    public func searchFolders(
-      request: SearchFoldersRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchFoldersResponse {
-      try await self._intercept(
-        request: request,
-        options: options,
-        idempotent: true,
-        action: {
-          (r: SearchFoldersRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleCloudResourcemanagerV3.SearchFoldersResponse
-          in
-          return try await self.inner.searchFolders(request: r, options: o)
-        })
-    }
-
-    public func createFolder(
-      request: CreateFolderRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
-      try await self._intercept(
-        request: request,
-        options: options,
-        idempotent: false,
-        action: {
-          (r: CreateFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleLongrunning.Operation
-          in
-          return try await self.inner.createFolder(request: r, options: o)
-        })
-    }
-
-    public func updateFolder(
-      request: UpdateFolderRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
-      try await self._intercept(
-        request: request,
-        options: options,
-        idempotent: false,
-        action: {
-          (r: UpdateFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleLongrunning.Operation
-          in
-          return try await self.inner.updateFolder(request: r, options: o)
-        })
-    }
-
-    public func moveFolder(
-      request: MoveFolderRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
-      try await self._intercept(
-        request: request,
-        options: options,
-        idempotent: false,
-        action: {
-          (r: MoveFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleLongrunning.Operation
-          in
-          return try await self.inner.moveFolder(request: r, options: o)
-        })
-    }
-
-    public func deleteFolder(
-      request: DeleteFolderRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
-      try await self._intercept(
-        request: request,
-        options: options,
-        idempotent: false,
-        action: {
-          (r: DeleteFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleLongrunning.Operation
-          in
-          return try await self.inner.deleteFolder(request: r, options: o)
-        })
-    }
-
-    public func undeleteFolder(
-      request: UndeleteFolderRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleLongrunning.Operation {
-      try await self._intercept(
-        request: request,
-        options: options,
-        idempotent: false,
-        action: {
-          (r: UndeleteFolderRequest, o: GoogleCloudGax.RequestOptions) async throws
-            -> GoogleLongrunning.Operation
-          in
-          return try await self.inner.undeleteFolder(request: r, options: o)
+          return try await self.inner.searchOrganizations(request: r, options: o)
         })
     }
 

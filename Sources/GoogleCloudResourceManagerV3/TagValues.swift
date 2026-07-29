@@ -45,7 +45,7 @@ public class TagValuesClient: Clients.TagValuesProtocol {
   /// @Snippet(path: "TagValues_ListTagValues")
   public func listTagValues(
     request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.ListTagValuesResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.ListTagValuesResponse {
     try await self.inner.listTagValues(request: request, options: options)
   }
 
@@ -56,7 +56,7 @@ public class TagValuesClient: Clients.TagValuesProtocol {
     byItem: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<TagValue, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.ListTagValuesResponse in
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.ListTagValuesResponse in
       var request = byItem
       request.pageToken = token
       return try await self.listTagValues(request: request, options: options)
@@ -70,7 +70,7 @@ public class TagValuesClient: Clients.TagValuesProtocol {
   /// @Snippet(path: "TagValues_GetTagValue")
   public func getTagValue(
     request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+  ) async throws -> GoogleCloudResourceManagerV3.TagValue {
     try await self.inner.getTagValue(request: request, options: options)
   }
 
@@ -81,7 +81,7 @@ public class TagValuesClient: Clients.TagValuesProtocol {
   /// @Snippet(path: "TagValues_GetNamespacedTagValue")
   public func getNamespacedTagValue(
     request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+  ) async throws -> GoogleCloudResourceManagerV3.TagValue {
     try await self.inner.getNamespacedTagValue(request: request, options: options)
   }
 
@@ -343,7 +343,7 @@ extension Clients {
   public protocol TagValuesProtocol {
     /// See `TagValuesClient.listTagValues`.
     func listTagValues(request: ListTagValuesRequest) async throws
-      -> GoogleCloudResourcemanagerV3.ListTagValuesResponse
+      -> GoogleCloudResourceManagerV3.ListTagValuesResponse
 
     /// See `TagValuesClient.listTagValues`.
     func listTagValues(
@@ -357,21 +357,21 @@ extension Clients {
 
     /// See `TagValuesClient.getTagValue`.
     func getTagValue(request: GetTagValueRequest) async throws
-      -> GoogleCloudResourcemanagerV3.TagValue
+      -> GoogleCloudResourceManagerV3.TagValue
 
     /// See `TagValuesClient.getTagValue`.
     func getTagValue(
       name: Swift.String,
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue
 
     /// See `TagValuesClient.getNamespacedTagValue`.
     func getNamespacedTagValue(request: GetNamespacedTagValueRequest) async throws
-      -> GoogleCloudResourcemanagerV3.TagValue
+      -> GoogleCloudResourceManagerV3.TagValue
 
     /// See `TagValuesClient.getNamespacedTagValue`.
     func getNamespacedTagValue(
       name: Swift.String,
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue
 
     /// See `TagValuesClient.createTagValue`.
     func createTagValue(request: CreateTagValueRequest) async throws -> GoogleLongrunning.Operation
@@ -440,7 +440,7 @@ extension Clients {
     /// See `TagValuesClient.listTagValues`.
     func listTagValues(
       request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagValuesResponse
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagValuesResponse
 
     /// See `TagValuesClient.listTagValues`.
     func listTagValues(
@@ -450,12 +450,12 @@ extension Clients {
     /// See `TagValuesClient.getTagValue`.
     func getTagValue(
       request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue
 
     /// See `TagValuesClient.getNamespacedTagValue`.
     func getNamespacedTagValue(
       request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.TagValue
+    ) async throws -> GoogleCloudResourceManagerV3.TagValue
 
     /// See `TagValuesClient.createTagValue`.
     func createTagValue(
@@ -507,14 +507,14 @@ extension Clients {
 // Default implementations
 extension Clients.TagValuesProtocol {
   public func listTagValues(request: ListTagValuesRequest) async throws
-    -> GoogleCloudResourcemanagerV3.ListTagValuesResponse
+    -> GoogleCloudResourceManagerV3.ListTagValuesResponse
   {
     try await self.listTagValues(request: request, options: .init())
   }
 
   public func listTagValues(
     request: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.ListTagValuesResponse {
+  ) async throws -> GoogleCloudResourceManagerV3.ListTagValuesResponse {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
@@ -528,7 +528,7 @@ extension Clients.TagValuesProtocol {
     byItem: ListTagValuesRequest, options: GoogleCloudGax.RequestOptions
   ) throws -> any AsyncSequence<TagValue, Swift.Error> {
     let listRpc = {
-      (token: Swift.String) async throws -> GoogleCloudResourcemanagerV3.ListTagValuesResponse in
+      (token: Swift.String) async throws -> GoogleCloudResourceManagerV3.ListTagValuesResponse in
       throw GoogleCloudGax.RequestError.unimplemented
     }
     return GoogleCloudGax.PaginatedResponseSequence(listRpc: listRpc)
@@ -544,20 +544,20 @@ extension Clients.TagValuesProtocol {
   }
 
   public func getTagValue(request: GetTagValueRequest) async throws
-    -> GoogleCloudResourcemanagerV3.TagValue
+    -> GoogleCloudResourceManagerV3.TagValue
   {
     try await self.getTagValue(request: request, options: .init())
   }
 
   public func getTagValue(
     request: GetTagValueRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+  ) async throws -> GoogleCloudResourceManagerV3.TagValue {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
   public func getTagValue(
     name: Swift.String,
-  ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+  ) async throws -> GoogleCloudResourceManagerV3.TagValue {
     let request = GetTagValueRequest().with {
       $0.name = name
     }
@@ -565,20 +565,20 @@ extension Clients.TagValuesProtocol {
   }
 
   public func getNamespacedTagValue(request: GetNamespacedTagValueRequest) async throws
-    -> GoogleCloudResourcemanagerV3.TagValue
+    -> GoogleCloudResourceManagerV3.TagValue
   {
     try await self.getNamespacedTagValue(request: request, options: .init())
   }
 
   public func getNamespacedTagValue(
     request: GetNamespacedTagValueRequest, options: GoogleCloudGax.RequestOptions
-  ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+  ) async throws -> GoogleCloudResourceManagerV3.TagValue {
     throw GoogleCloudGax.RequestError.unimplemented
   }
 
   public func getNamespacedTagValue(
     name: Swift.String,
-  ) async throws -> GoogleCloudResourcemanagerV3.TagValue {
+  ) async throws -> GoogleCloudResourceManagerV3.TagValue {
     let request = GetNamespacedTagValueRequest().with {
       $0.name = name
     }

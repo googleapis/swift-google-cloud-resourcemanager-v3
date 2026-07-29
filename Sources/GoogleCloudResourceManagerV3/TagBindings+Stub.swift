@@ -27,7 +27,7 @@ extension Clients {
   protocol TagBindingsStub {
     func listTagBindings(
       request: ListTagBindingsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagBindingsResponse
 
     func createTagBinding(
       request: CreateTagBindingRequest, options: GoogleCloudGax.RequestOptions
@@ -39,7 +39,7 @@ extension Clients {
 
     func listEffectiveTags(
       request: ListEffectiveTagsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse
+    ) async throws -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse
 
     func getOperation(
       request: GoogleLongrunning.GetOperationRequest, options: GoogleCloudGax.RequestOptions
@@ -56,7 +56,7 @@ extension Clients {
 
     public func listTagBindings(
       request: ListTagBindingsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListTagBindingsResponse {
+    ) async throws -> GoogleCloudResourceManagerV3.ListTagBindingsResponse {
       let path = try { () throws -> Swift.String in
         return "/v3/tagBindings"
       }()
@@ -72,7 +72,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.ListTagBindingsResponse.self, from: data)
+        GoogleCloudResourceManagerV3.ListTagBindingsResponse.self, from: data)
     }
 
     public func createTagBinding(
@@ -120,7 +120,7 @@ extension Clients {
 
     public func listEffectiveTags(
       request: ListEffectiveTagsRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse {
+    ) async throws -> GoogleCloudResourceManagerV3.ListEffectiveTagsResponse {
       let path = try { () throws -> Swift.String in
         return "/v3/effectiveTags"
       }()
@@ -136,7 +136,7 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.ListEffectiveTagsResponse.self, from: data)
+        GoogleCloudResourceManagerV3.ListEffectiveTagsResponse.self, from: data)
     }
 
     public func getOperation(

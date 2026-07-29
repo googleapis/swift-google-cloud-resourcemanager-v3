@@ -25,37 +25,37 @@ import GoogleRpc
 import GoogleCloudGax
 
 extension Clients {
-  protocol FoldersStub {
-    func getFolder(
-      request: GetFolderRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Folder
+  protocol ProjectsStub {
+    func getProject(
+      request: GetProjectRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.Project
 
-    func listFolders(
-      request: ListFoldersRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListFoldersResponse
+    func listProjects(
+      request: ListProjectsRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListProjectsResponse
 
-    func searchFolders(
-      request: SearchFoldersRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchFoldersResponse
+    func searchProjects(
+      request: SearchProjectsRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.SearchProjectsResponse
 
-    func createFolder(
-      request: CreateFolderRequest, options: GoogleCloudGax.RequestOptions
+    func createProject(
+      request: CreateProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func updateFolder(
-      request: UpdateFolderRequest, options: GoogleCloudGax.RequestOptions
+    func updateProject(
+      request: UpdateProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func moveFolder(
-      request: MoveFolderRequest, options: GoogleCloudGax.RequestOptions
+    func moveProject(
+      request: MoveProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func deleteFolder(
-      request: DeleteFolderRequest, options: GoogleCloudGax.RequestOptions
+    func deleteProject(
+      request: DeleteProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
-    func undeleteFolder(
-      request: UndeleteFolderRequest, options: GoogleCloudGax.RequestOptions
+    func undeleteProject(
+      request: UndeleteProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation
 
     func getIamPolicy(
@@ -75,7 +75,7 @@ extension Clients {
     ) async throws -> GoogleLongrunning.Operation
   }
 
-  class FoldersTransport: FoldersStub {
+  class ProjectsTransport: ProjectsStub {
     let inner: GoogleCloudGax.HTTPClient
 
     public init(_ options: GoogleCloudGax.ClientOptions = .init()) throws {
@@ -83,9 +83,9 @@ extension Clients {
         from: options, withDefaultEndpoint: "https://cloudresourcemanager.googleapis.com")
     }
 
-    public func getFolder(
-      request: GetFolderRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.Folder {
+    public func getProject(
+      request: GetProjectRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.Project {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
           throw GoogleCloudGax.RequestError.binding("'request.name' is not set or is empty")
@@ -100,57 +100,57 @@ extension Clients {
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.Folder.self, from: data)
+        GoogleCloudResourceManagerV3.Project.self, from: data)
     }
 
-    public func listFolders(
-      request: ListFoldersRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.ListFoldersResponse {
+    public func listProjects(
+      request: ListProjectsRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.ListProjectsResponse {
       let path = try { () throws -> Swift.String in
-        return "/v3/folders"
+        return "/v3/projects"
       }()
       var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
       ]
       let encoder = GoogleCloudGax.QueryParameterEncoder()
       query.append(contentsOf: try encoder.encode(request.parent, prefix: "parent"))
-      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
       query.append(contentsOf: try encoder.encode(request.pageToken, prefix: "pageToken"))
+      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
       query.append(contentsOf: try encoder.encode(request.showDeleted, prefix: "showDeleted"))
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "GET"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.ListFoldersResponse.self, from: data)
+        GoogleCloudResourceManagerV3.ListProjectsResponse.self, from: data)
     }
 
-    public func searchFolders(
-      request: SearchFoldersRequest, options: GoogleCloudGax.RequestOptions
-    ) async throws -> GoogleCloudResourcemanagerV3.SearchFoldersResponse {
+    public func searchProjects(
+      request: SearchProjectsRequest, options: GoogleCloudGax.RequestOptions
+    ) async throws -> GoogleCloudResourceManagerV3.SearchProjectsResponse {
       let path = try { () throws -> Swift.String in
-        return "/v3/folders:search"
+        return "/v3/projects:search"
       }()
       var query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
       ]
       let encoder = GoogleCloudGax.QueryParameterEncoder()
-      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
-      query.append(contentsOf: try encoder.encode(request.pageToken, prefix: "pageToken"))
       query.append(contentsOf: try encoder.encode(request.query, prefix: "query"))
+      query.append(contentsOf: try encoder.encode(request.pageToken, prefix: "pageToken"))
+      query.append(contentsOf: try encoder.encode(request.pageSize, prefix: "pageSize"))
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "GET"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
       let (data, _) = try await self.inner.rpc(for: req).get()
       return try GoogleCloudWkt._ProtoJSONDecoder().decode(
-        GoogleCloudResourcemanagerV3.SearchFoldersResponse.self, from: data)
+        GoogleCloudResourceManagerV3.SearchProjectsResponse.self, from: data)
     }
 
-    public func createFolder(
-      request: CreateFolderRequest, options: GoogleCloudGax.RequestOptions
+    public func createProject(
+      request: CreateProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
-        return "/v3/folders"
+        return "/v3/projects"
       }()
       let query = [
         URLQueryItem(name: "$alt", value: "json;enum-encoding=int")
@@ -158,7 +158,7 @@ extension Clients {
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "POST"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      if let body = request.folder {
+      if let body = request.project {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONEncoder().encode(body)
       }
@@ -167,12 +167,12 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func updateFolder(
-      request: UpdateFolderRequest, options: GoogleCloudGax.RequestOptions
+    public func updateProject(
+      request: UpdateProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
-        guard let pathVariable0 = request.folder.map({ $0.name }), !pathVariable0.isEmpty else {
-          throw GoogleCloudGax.RequestError.binding("'request.folder.name' is not set or is empty")
+        guard let pathVariable0 = request.project.map({ $0.name }), !pathVariable0.isEmpty else {
+          throw GoogleCloudGax.RequestError.binding("'request.project.name' is not set or is empty")
         }
         return "/v3/\(pathVariable0)"
       }()
@@ -184,7 +184,7 @@ extension Clients {
       var req = try await self.inner.Request(path: path, query: query)
       req.httpMethod = "PATCH"
       req.setValue(Clients.clientHeader, forHTTPHeaderField: "X-Goog-Api-Client")
-      if let body = request.folder {
+      if let body = request.project {
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpBody = try JSONEncoder().encode(body)
       }
@@ -193,8 +193,8 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func moveFolder(
-      request: MoveFolderRequest, options: GoogleCloudGax.RequestOptions
+    public func moveProject(
+      request: MoveProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
@@ -215,8 +215,8 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func deleteFolder(
-      request: DeleteFolderRequest, options: GoogleCloudGax.RequestOptions
+    public func deleteProject(
+      request: DeleteProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
@@ -235,8 +235,8 @@ extension Clients {
         GoogleLongrunning.Operation.self, from: data)
     }
 
-    public func undeleteFolder(
-      request: UndeleteFolderRequest, options: GoogleCloudGax.RequestOptions
+    public func undeleteProject(
+      request: UndeleteProjectRequest, options: GoogleCloudGax.RequestOptions
     ) async throws -> GoogleLongrunning.Operation {
       let path = try { () throws -> Swift.String in
         guard let pathVariable0 = request.name as Swift.String?, !pathVariable0.isEmpty else {
